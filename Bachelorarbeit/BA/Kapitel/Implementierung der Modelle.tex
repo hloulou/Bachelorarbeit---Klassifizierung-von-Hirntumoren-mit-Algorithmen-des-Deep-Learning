@@ -1,0 +1,142 @@
+\section{Implementierung der Modelle}
+
+\subsection{Betriebssystem \& Software-Pakete}
+
+Für die Implementierung und das Training der Modelle wurde eine speziell auf die Anforderungen moderner \ac{dl}-Anwendungen abgestimmte Hardware- und Softwareumgebung verwendet. Im Folgenden wird das verwendete Betriebssystem, die Hardware sowie die eingesetzten Software-Pakete und deren Relevanz für das Projekt beschrieben.
+\subsubsection{Betriebssystem und Hardware}
+Die Implementierung erfolgte unter Verwendung des Betriebssystems Windows 11 Pro. Als Hardware stand ein System mit folgenden Spezifikationen zur Verfügung:
+\begin{itemize}
+    \item Prozessor (CPU): Intel Core i9
+    \item Arbeitsspeicher (RAM): 32 GB
+    \item Grafikkarte (GPU): NVIDIA RTX 4070 Laptop GPU mit 8 GB Video-RAM
+\end{itemize}
+Die Nutzung der NVIDIA GPU ermöglichte eine signifikante Beschleunigung des Trainingsprozesses, da sowohl TensorFlow als auch Keras eine Optimierung für 
+GPU-beschleu-nigtes Rechnen bieten. Die leistungsstarke CPU, der ausreichende Arbeitsspeicher und die moderne GPU erwiesen sich als essenziell für die effiziente Verarbeitung der umfangreichen Bilddaten und die komplexen Berechnungen der Modelle.
+\subsubsection{Software-Umgebung}
+Die Implementierung der Modelle erfolgte in der Programmiersprache Python 3.9.13 unter Verwendung der Entwicklungsumgebung Jupyter Notebook. Jupyter ermöglichte die nahtlose Integration von Code, Visualisierungen und begleitender Dokumentation.
+Im Rahmen der Implementierung wurden folgende Python-Bibliotheken und Pakete eingesetzt:
+\begin{itemize}
+    \item Allgemeine Bibliotheken
+    \begin{itemize}
+    \item TensorFlow von \citet[]{Tensorflow:2015}: Framework für \ac{dl}-Anwendungen, das insbesondere für die Modellarchitektur, das Training und die Optimierung der Modelle genutzt wurde.
+    \item Keras von \citet[]{Keras:2015}: High-Level-API von TensorFlow, die den Aufbau und die Anpassung neuronaler Netze erleichtert.
+    \item sklearn.utils (\texttt{\colorbox{gray!20}{shuffle}}): Zum Durchmischen der Daten, um eine gleichmäßige Verteilung der Klassen im Training zu gewährleisten.
+    \item NumPy von \citet[]{Harris:2020}: Zur effizienten Verarbeitung numerischer Daten.
+    \item pandas von \citet[]{Mckinney:2010}: Für die Analyse und Manipulation tabellarischer Daten, insbesondere durch die Verwendung der DataFrame-Struktur. 
+    \item os und random: Für die Verwaltung des Dateisystems und die Reproduzierbarkeit von Experimenten.
+    \item collections (\texttt{\colorbox{gray!20}{Counter}}): Zur statistischen Analyse und Darstellung der Häufigkeit von Datenelementen. 
+    \item warnings: Zur Unterdrückung irrelevanter Warnmeldungen.
+    \end{itemize}
+    \item Visualisierungsbibliotheken
+    \begin{itemize}
+    \item Matplotlib von \citet[]{Hunter:2007} und Seaborn von \citet[]{Waskom:2021}: Für die Visualisierung von Datenverteilungen, Modellmetriken und Trainingsergebnissen.
+    \item sklearn.metrics von \citet[]{Pedregosa:2011}: Zur Berechnung von Leistungsmetriken für Modellbewertung.
+    \item visualkeras: Zur grafischen Darstellung der Modellarchitektur.
+    \end{itemize}
+    \item Datenvorbereitung
+    \begin{itemize}
+    \item sklearn.utils (\texttt{\colorbox{gray!20}{class\_weight}}): Zum Ausgleich unausgeglichener Klassenverteilungen.
+    \item ImageDataGenerator: Zur Skalierung der Daten und Unterteilung des Datensatzes in Trainings- und Validierungs-Subsets unter Verwendung eines festen Seeds für Reproduzierbarkeit.
+    \end{itemize}
+    \item Modellbildung und Training mit TensorFlow/Keras 
+    \begin{itemize}
+    \item Modellarchitektur: Aufbau der \ac{cnn}s mit Schichten wie \texttt{\colorbox{gray!20}{Conv2D}}, \texttt{\colorbox{gray!20}{Dense}},  \texttt{\colorbox{gray!20}{Dropout}}, \texttt{\colorbox{gray!20}{MaxPooling2D}}, \texttt{\colorbox{gray!20}{GlobalAveragePooling2D}}, \texttt{\colorbox{gray!20}{BatchNormalization}} und \texttt{\colorbox{gray!20}{Flatten}}.
+    \item Training: Implementierung von Optimierungstechniken wie \texttt{\colorbox{gray!20}{Adam}} sowie Regularisierung mit \texttt{\colorbox{gray!20}{l2}} und Verwendung von Verlustsfunktionen wie \ac{cce} \\ \texttt{\colorbox{gray!20}{categorical\_crossentropy}}.
+    \item Keras Tuner (kt): Für das \acf{hp}-Tuning.
+    \item Callback (\texttt{\colorbox{gray!20}{EarlyStopping}}: Zur Optimierung des Trainingsprozesses und zur Vermeidung von Overfitting.
+    \end{itemize}
+\end{itemize}
+Die gewählte Softwareumgebung sowie die verwendeten Bibliotheken wurden sorgfältig dokumentiert, um die Nachvollziehbarkeit und Reproduzierbarkeit der Ergebnisse zu gewährleisten. Die spezifischen Versionen der wesentlichen Pakete sind in Tabelle \ref{tab:5.1} zusammengefasst.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{||c|c||}
+\hline
+\textbf{Bibliothek} & \textbf{Version} \\
+\hline
+TensorFlow & 2.10.1 \\
+Keras & 2.10.0 \\
+NumPy & 1.21.5 \\
+pandas & 1.4.4 \\
+Matplotlib & 3.5.2 \\
+Seaborn & 0.11.2 \\
+scikit-learn & 1.0.2 \\
+\hline
+\end{tabular}
+\caption{Softwarebibliotheken und deren spezifische Versionen.}
+\label{tab:5.1}
+\end{table}
+
+Die Kombination der genannten Software-Pakete ermöglichte eine effiziente und flexible Implementierung der Modelle. Die Verwendung von TensorFlow und Keras als robuste Plattform für die Modellbildung und das Training erwies sich als vorteilhaft, ebenso wie die Integration von Visualisierungsbibliotheken wie Matplotlib und Seaborn, welche eine umfassende Analyse und Präsentation der Ergebnisse erleichterten.
+Die Hardware- und Softwarekonfiguration bildete somit eine optimale Grundlage für die Implementierung der Modelle und die Verarbeitung des \ac{mrt}-Datensatzes.
+
+
+\subsection{Selbst entwickeltes CNN-Modell}
+\subsubsection{Modellarchitektur}
+
+Das entwickelte \ac{cnn} wurde mit dem Ziel entworfen, die Klassifikation von 
+\ac{mrt}-Bildern in vier Klassen zu ermöglichen. Die Architektur des Modells ist in Abbildung \ref{fig:6.2} dargestellt und beinhaltet sowohl konvolutionale Schichten zur Merkmalsextraktion als auch dichte Schichten zur finalen Klassifikation.
+\begin{figure}[ht]
+    \centering
+        \includegraphics[width=.93\textwidth]{BA/Abbildungen/Selbsterstelltes CNN Architektur.jpg}
+        \caption{Architektur vom selbst entwickelten \ac{cnn}-Modell.}
+    \label{fig:6.2}
+\end{figure}
+
+Die Architektur des Modells umfasst zunächst eine Eingabeschicht und eine Abfolge von vier konvolutionalen Blöcken, welche jeweils eine Kombination aus einer konvolutionale Schicht, einer Batch-Normalisierung und einer Max-Pooling-Schicht enthalten. Im ersten Block werden 32 Filter mit einer Kernelgröße von 4×4 verwendet, wobei die ReLU-Aktivierungsfunktion für die Einbindung von Nichtlinearität sorgt. In den nachfolgenden Blöcken erfolgt eine sukzessive Erhöhung der Filteranzahl (64, 128 sowie 256), um komplexere Merkmale zu extrahieren und somit die Repräsentationsfähigkeit des Modells zu verbessern.
+\\
+Die Batch-Normalisierung, welche in jedem Block nach der konvolutionalen Schicht implementiert wird, dient der Stabilisierung der Eingabeverteilung für jede Schicht. Dies resultiert in einer Beschleunigung des Trainings sowie einer Minimierung des Risikos der internen Kovariatenverschiebung (engl. \textit{internal covariate shift}), bei dem sich die Verteilung der Eingabedaten für eine Schicht während des Trainings verändert. (Vgl. \citealt[S. 338-341]{Geron:2019}).
+\\
+\\
+Die Max-Pooling-Schichten mit einer Poolgröße von 3×3 reduzieren die räumliche Dimension der Merkmalskarten und tragen zur Verringerung der Rechenkomplexität sowie zur Erhöhung der translationalen Invarianz bei. In der Folge der Merkmalsextraktion erfolgt durch eine Flatten-Schicht die Überführung in einen eindimensionalen Vektor. Dieser bildet die Grundlage für die nachfolgende Klassifikation.
+\\
+Im dichten Teil des Netzwerks folgt eine vollverbundene Schicht mit 1024 Neuronen. Im Rahmen dieser Konfiguration findet eine L2-Regularisierung mit $\lambda = 0,001$ Anwendung, um ein Overfitting des Modells zu vermeiden. Des Weiteren wird durch den Einsatz von Dropout-Schicht (50\%) die Generalisierungsfähigkeit des Modells optimiert, indem während des Trainings zufällig Neuronen deaktiviert werden. Die Architektur endet mit einer Ausgabeschicht, die vier Neuronen enthält, was der Anzahl der zu unterscheidenden Klassen entspricht, sowie einer Softmax-Aktivierungsfunktion, welche die Wahrscheinlichkeiten der einzelnen Klassen berechnet.
+\\
+Das Training des Modells erfolgte über 100 Epochen mit einer Batchgröße von 32 unter Berücksichtigung von Klassengewichten. Der Adam-Optimierer mit der Lernrate $\eta = 1e-4$ wurde für das Training eingesetzt, da er sich aufgrund seiner adaptiven Lernratenanpassung als besonders effizient für tiefere neuronale Netzwerke erwiesen hat (vgl. \citealt[S. 356-357]{Geron:2019}). Zur Optimierung des Trainingsprozesses wurde das Callback zur frühen Beendigung (\texttt{\colorbox{gray!20}{EarlyStopping}}) implementiert, sodass das Training abgebrochen wird, wenn der Validierungsverlust über 10 aufeinanderfolgende Epochen keine Verbesserung zeigte (vgl. \citet[S. 315-316]{Geron:2019}). Die Integration des Callbacks führte zu einer Vermeidung vom Overfitting sowie einer Verbesserung der Modellkonvergenz.
+
+\subsection{Vortrainiertes CNN-Modell ResNet-50}
+\subsubsection{Modellarchitektur}
+
+ResNet von \citet[]{He:2016}, auch als Residual Network bezeichnet, konnte im Jahr 2015 die \ac{ilsvrc} \citet[]{Russakovsky:2015} für sich entscheiden und wies dabei eine bemerkenswert niedrige Fehlerrate von unter 3,6\% auf. ResNet ermöglicht den Aufbau extrem tiefer neuronaler Netzwerke mithilfe von Skip-Verbindungen. Diese Verbindungen bewirken, dass die Eingabe eines Layers unmittelbar dem Ausgang eines späteren Layers zugeführt wird. Infolgedessen modelliert das Netzwerk nicht die Zielfunktion direkt, sondern die Differenz zwischen der Zielfunktion und der Eingabe (Residual Learning). Diese Technik erleichtert den Trainingsprozess und reduziert die Probleme tiefer Netzwerke, wie das Verschwinden von Gradienten (engl. \textit{vanishing gradient}). Auch wenn einzelne Schichten während des Trainings suboptimal lernen, kann das Netzwerk durch die effiziente Signalweiterleitung dennoch Fortschritte erzielen. (Vgl. \citealt[S. 471]{Geron:2019}).
+\\
+Die Architektur von ResNet umfasst sogenannte Residual Units (RUs), die aus mehreren konvolutionalen Schichten mit Skip-Verbindungen bestehen. Jede RU enthält Batch-Normalisierung und ReLU-Aktivierungen, wobei in der Regel 3×3-Kernel verwendet werden, um räumliche Dimensionen der Merkmalskarten beizubehalten. Zur Reduktion der Höhe und Breite der Merkmalskarten kommt eine Stride-2-Konvolution zum Einsatz, während 1×1-Schichten die Dimensionen der Skip-Verbindungen anpassen. (Vgl. \citealt[S. 471-473]{Geron:2019}).
+\\
+Ein wesentlicher Bestandteil von ResNet-50 sind die sogenannten Bottleneck-Residual Units. Diese Units setzen sich aus aus drei konvolutionalen Schichten: einer 1×1-Schicht zur Reduktion der Merkmalskarten, einer 3×3-Schicht zur Mustererkennung und einer weiteren 1×1-Schicht zur Wiederherstellung der ursprünglichen Merkmalskartentiefe. Die 1×1-Schichten, vielfach auch als Bottleneck-Schichten (engl. \textit{bottleneck layer} bezeichnet, fokussieren auf Muster entlang der Tiefe, reduzieren die Dimensionalität und senken dadurch den Rechenaufwand sowie die Anzahl der Modellparameter. Dies verbessert die Effizienz und Generalisierungsfähigkeit des Modells. Die Abfolge aus 1×1-, 3×3- und 1×1-Schicht agiert wie eine besonders leistungsfähige, zusammengefasste konvolutionale Schicht. Im Vergleich zu einem einfachen linearen Klassifikator, der über ein Bild "`gescannt"' wird, ermöglicht diese Schichtkombination die Erkennung komplexerer Muster, indem ein kleines neuronales Netzwerk über das Bild verschoben wird. (Vgl. \citealt[S. 467-468; 474]{Geron:2019}).
+\\
+Das ResNet-50 ist in verschiedene Blöcke unterteilt, die jeweils eine steigende Anzahl an Merkmalskarten enthalten. Dabei handelt es sich um drei Residual Units mit 256, vier mit 512, sechs mit 1024 sowie drei mit 2048 Merkmalskarten. Die Implementierung von Bottleneck-Schichten resultiert in einer gesteigerten Effizienz der Verarbeitung, ohne dass dies eine Reduktion der Modellleistung bedingt. (Vgl. \citealt[S. 5]{He:2016}).\\
+Abbildung \ref{fig:6.3} illustriert die Architektur von ResNet-50, einschließlich der Bottleneck-Schichten und der Residual Units.
+\begin{figure}[ht!]
+    \centering
+        \includegraphics[height=1\textwidth]{BA/Abbildungen/ResNet Achitektur.png}
+        \caption{ResNet-50 Modellarchitektur, entnommen aus \citet[S. 1020]{Bendjillali:2020}.}
+    \label{fig:6.3}
+\end{figure}
+
+\subsubsection{Praktische Anwendung des Modells}
+
+Die Wahl des ResNet-50 im Rahmen dieser Arbeit wurde aufgrund seiner tiefen, aber gleichzeitig effizienten Architektur getroffen, die durch Bottleneck-Schichten und Residual Learning auch bei komplexen Aufgaben hohe Leistungsfähigkeit zeigt. Die Verwendung eines vortrainierten Modells bringt zusätzliche Vorteile, darunter kürzere Trainingszeiten, reduzierte Parameteranzahl und die Möglichkeit, auf ImageNet extrahierte Merkmale für domänenspezifische Aufgaben zu nutzen.
+\\
+Im ersten Schritt wurde das ResNet-50-Modell dahingehend angepasst, dass ausschließlich die neue Ausgabeschicht trainiert wurde. Dies hatte zur Konsequenz, dass alle anderen Schichten eingefroren blieben und ihre vortrainierten Parameter behielten. Durch diese Methode blieben die vortrainierten Gewichte erhalten, während die Anpassung auf den spezifischen Datensatz fokussiert wurde. Die Implementierung der neuen Ausgabeschicht erfolgte durch eine Kombination verschiedener Schritte. In einem ersten Schritt wurde die Ausgabe vom ResNet-50 in eine Global-Average-Pooling-Schicht überführt, wodurch eine Reduktion der Dimensionen sowie eine robuste Repräsentation der Merkmale erzielt wurde. Im Anschluss wurde eine dichte Schicht mit 1024 Neuronen und ReLU-Aktivierung implementiert, um Overfitting zu reduzieren. Zu diesem Zweck wurde eine Dropout-Schicht (50\%) hinzugefügt. Die Ausgabeschicht besteht aus vier Neuronen und einer Softmax-Aktivierung. \\
+Das Modell wurde mit dem Adam-Optimierer konfiguriert. Eine Lernrate $\eta$ von $1e-4$ wurde gewählt, basierend auf stabilen und schnellen Ergebnissen in vorangegangenen Tests. In Bezug auf die Verlustfunktion wurde die Wahl auf \ac{cce} getroffen, da es sich um ein mehrklassiges Klassifizierungsproblem handelt. Die Überwachung der Modellleistung erfolgte anhand der Accuracy als Metrik, sowohl während des Trainings als auch auf den Validierungsdaten.
+\\
+Das Training wurde mit 100 Epochen durchgeführt, wobei das Callback (\texttt{\colorbox{gray!20}{EarlyStopping}}) integriert wurde. Des Weiteren wurden Klassengewichte eingeführt, um die Auswirkungen der ungleichen Klassenverteilung zu mildern und das Modell für seltener vertretene Klassen zu sensibilisieren.
+\\
+Nach Abschluss des ersten Trainingsschritts wurde die Ausgabeschicht des Modells beibehalten und die letzten 20 Schichten zum \ac{ft} freigegeben. Diese Schichten enthalten die komplexesten Merkmalsextraktionen und wurden durch das \ac{ft} an die Merkmale des spezifischen Datensatzes angepasst. Um ein Overfitting zu vermeiden, wurde die Lernrate $\eta$ auf $1e-5$ reduziert. Dadurch ist das Modell in der Lage, feinere Anpassungen vorzunehmen, ohne die vortrainierten Gewichte signifikant zu verändern.
+
+\subsubsection{\acf{hpo}}
+
+Die Auswahl geeigneter \ac{hp} ist ein entscheidender Schritt in der Optimierung von \ac{dnn}, da sie maßgeblich die Lernfähigkeit und Generalisierung beeinflusst. Im Rahmen der \ac{hpo} wurde der Algorithmus \acf{gs} angewendet. \ac{gs} stellt eine systematische Methode zur Optimierung von \ac{hp} dar, bei der für jeden \ac{hp} eine endliche Menge potenzieller Werte definiert wird. Im Anschluss erfolgt die Modellierung aller Kombinationen der zuvor definierten Werte, welche einer Evaluierung unterzogen werden. Das Ziel besteht in der Identifikation derjenigen \ac{hp}-Kombination, welche den geringsten Validierungsfehler bzw. die beste Validierungsgenauigkeit aufweist. Die Methode basiert auf der Erstellung eines kartesischen Produkts aus den Werten der \ac{hp} und umfasst für jede Kombination ein Training. (Vgl. \citealt[S. 432]{Goodfellow:2017}).
+\\
+Der Prozess von \ac{gs} kann in drei wesentliche Schritte unterteilt werden: Zunächst werden die Wertebereiche definiert. Für numerische \ac{hp} wie die Lernrate wird häufig eine logarithmische Skalierung verwendet, während diskrete Parameter durch eine begrenzte Anzahl spezifischer Werte definiert werden. Anschließend werden alle möglichen Kombinationen im Rahmen einer systematischen Evaluierung getestet. Dabei steigt die Trainingszeit exponentiell mit der Anzahl der \ac{hp} nach $O(n^m)$, wobei $n$ die Anzahl der Werte pro \ac{hp} und $m$ die Anzahl der \ac{hp}. Zum Beispiel würde die Optimierung von drei \ac{hp} mit jeweils fünf möglichen Werten zu $5^3 = 125$ Kombinationen führen. (Vgl. \citealt[S. 434]{Goodfellow:2017}).
+\\
+\ac{gs} eignet sich besonders für Probleme mit wenigen \ac{hp}, da das Verfahren trotz exponentiell wachsender Rechenzeit eine vollständige Exploration des Parameterraums erlaubt. Aufgrund dieser Einfachheit und Gründlichkeit ist \ac{gs} trotz seiner Einschränkungen bei komplexen Parameterräumen in der Praxis weit verbreitet. (Vgl. \citealt[S. 434]{Goodfellow:2017}).
+\\
+Im Rahmen dieser Arbeit wurde \ac{gs} eingesetzt, um die Anzahl der trainierbaren Schichten (\texttt{\colorbox{gray!20}{trainable\_layers}}) im Modell ResNet-50 zu optimieren. Dieser \ac{hp}s wurde auf Basis früherer Trainingsdurchläufe gewählt, bei denen das Training der letzten 20 Schichten vielversprechende Ergebnisse lieferte. Die Optimierung erfolgte durch Variation der trainierbaren Schichten im Bereich von 1 bis 25, um den Einfluss dieser Schichten auf die Modellleistung systematisch zu untersuchen.
+\\
+\ac{gs} erwies sich als geeignet, da lediglich ein einziger \ac{hp} optimiert werden musste, was den Rechenaufwand trotz exponentieller Skalierung überschaubar hielt. Des Weiteren ermöglichte der Algorithmus im Gegensatz zum Algorithmus \acf{rs}, der die Parameterkombinationen zufällig auswählt, eine vollständige Abdeckung des definierten Bereichs, sodass eine präzise Analyse der Auswirkungen auf die Fähigkeit des Modells, domänenspezifische Merkmale zu erlernen, möglich war (vgl. \citealt[S. 433]{Goodfellow:2017}).
+\\
+Das Modell ResNet-50 wurde in seiner ursprünglichen Architektur mit der neuen Ausgabeschicht geladen. Zu Beginn des Prozesses wurden sämtliche Schichten eingefroren, sodass keine Modifikationen an ihnen vorgenommen wurden. Im Anschluss wurden lediglich die letzten Schichten entsprechend der zuvor definierten Anzahl für \ac{ft} freigegeben, um die Optimierung auf domänenspezifische Merkmale zu konzentrieren.
+\\
+Für die Kompilierung des Modells wurde der Adam-Optimierer mit einer Lernrate von $\eta = 1e-5$ verwendet. Das Training erfolgte auf den Trainings- und Validierungsdatensätzen, wobei die Leistungsfähigkeit des Modells kontinuierlich evaluiert wurde. Zur Durchführung der GS wurde ein Tuner-Objekt erstellt, welches die Modellarchitektur sowie die Optimierungsziele referenzierte. Die Anzahl der Versuche wurde auf maximal 25 konfiguriert, wobei jeder Versuch unterschiedliche Werte für die trainierbaren Schichten testete. Um die Stabilität der Ergebnisse zu gewährleisten, wurde jede Konfiguration dreimal wiederholt. Nach Abschluss der \ac{gs} wurde die Konfiguration mit dem niedrigsten Validierungsverlust als optimal identifiziert. Die resultierenden \ac{hp} wurden direkt aus dem Tuner abgerufen, um die optimale Anzahl trainierbarer Schichten zu bestimmen und die Leistung des Modells ResNet-50 weiter zu optimieren.
+\\
+Neben der manuellen Optimierung und der \ac{gs} stellt die Bayessche Optimierung (BO) eine weitere effiziente Alternative dar. Dieser Ansatz modelliert die Funktion der Hyperparameterleistung auf Basis einer Wahrscheinlichkeitsverteilung und optimiert iterativ, was insbesondere bei komplexen Modellen mit hohen Trainingskosten von Vorteil ist. Des Weiteren erlaubt die Methode die gezielte Exploration von Bereichen des Hyperparameterraums, wodurch sich eine Beschleunigung der Optimierung erzielen lässt. (Vgl. \citealt[S. 9-12]{Bischl:2023}).

@@ -1,0 +1,40 @@
+# Jupyter
+.ipynb_checkpoints
+
+# Conda environments
+env/
+venv/
+.venv/
+*.conda
+*.env
+
+# Python cache
+__pycache__/
+*.pyc
+
+# LaTeX Aux Files
+*.aux
+*.bbl
+*.blg
+*.brf
+*.log
+*.toc
+*.out
+*.bak
+*.tmp
+*.synctex.gz
+*.fdb_latexmk
+*.fls
+*.lof
+*.lot
+*.lol
+*.nav
+*.snm
+
+# VS Code
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini

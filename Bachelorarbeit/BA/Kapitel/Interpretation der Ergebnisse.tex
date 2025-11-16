@@ -1,0 +1,136 @@
+\section{Performancevergleich der Modelle}
+
+\subsection{Darstellung der Ergebnisse}
+
+Das selbst entwickelte \ac{cnn}-Modell erreichte auf dem Testdatensatz eine Testgenauigkeit von 98,10\% und einen Testverlust von 0,1027. Die in Abbildung \ref{fig:7.1} dargestellten Training- und Validierungslernkurven verdeutlichen eine nahezu kontinuierliche Verbesserung sowohl der Genauigkeit als auch des Verlusts, wobei einzelne starke Schwankungen zu beobachten sind. 
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=1\textwidth]{BA/Abbildungen/Selbsterstelltes CNN _ Acc_Loss.png}
+    \caption{Lernkurven des selbst entwickelten \ac{cnn}s: Links die Genauigkeit und rechts der Verlust.}
+    \label{fig:7.1}
+\end{figure}
+
+Die in Abbildung \ref{fig:7.2} dargestellte \ac{cm} zeigt eine hohe Precision sowie einen exzellenten Recall für die Klasse notumor. Demgegenüber weisen die F1-Scores der Klassen glioma und meningioma eine leichte Unterperformance gegenüber den Werten der übrigen Klassen auf, wie aus dem \ac{cr} in Abbildung \ref{fig:7.3} ersichtlich ist.
+
+\begin{figure}[h!]
+    \centering
+    % Erste Abbildung
+    \begin{minipage}[t]{0.51\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{BA/Abbildungen/Selbsterstelltes CNN _ CM.png}
+        \caption{\ac{cm} vom selbst entwickelten \ac{cnn}.}
+        \label{fig:7.2}
+    \end{minipage}
+    \hfill
+    % Zweite Abbildung
+    \begin{minipage}[t]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{BA/Abbildungen/Selbsterstelltes CNN _ CR.png}
+        \caption{\ac{cr} vom selbst entwickelten \ac{cnn}.}
+        \label{fig:7.3}
+    \end{minipage}
+\end{figure}
+
+Das Modell ResNet-50, welches lediglich um eine an den Datensatz angepasste Ausgabeschicht erweitert und trainiert wurde, erzielte eine Testgenauigkeit von 76,45\% bei einem Verlust von 0,5825. Die Analyse der Lernkurven, dargestellt in Abbildung \ref{fig:7.4}, deutet auf eine limitierte Generalisierungsfähigkeit hin.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=1\textwidth]{BA/Abbildungen/ResNet Output Acc_Loss.png}
+    \caption{Lernkurven des ResNet-50 mit angepasster Ausgabeschicht: Links die Genauigkeit, rechts der Verlust.}
+    \label{fig:7.4}
+\end{figure}
+
+Wie aus der \ac{cm} (vgl. Abbildung \ref{fig:7.5}) ersichtlich ist, zeigte das Modell Schwierigkeiten bei der Klassifikation der Klassen glioma und meningioma. Demgegenüber konnten die Klassen notumor und pituitary mit einer höheren Anzahl korrekter Klassifikationen zugeordnet werden. Dies wird durch den \ac{cr} (vgl. Abbildung \ref{fig:7.6}) bestätigt, der einen Macro Average F1-Score von 0,75 ausweist. Dies unterstreicht, dass eine einfache Anpassung der Ausgabeschicht ohne ein weitergehendes \ac{ft} nicht ausreichend ist.
+
+\begin{figure}[h!]
+    \centering
+    % Erste Abbildung
+    \begin{minipage}[t]{0.52\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{BA/Abbildungen/ResNet Output CM.png}
+        \caption{\ac{cm} vom ResNet-50 mit angepasster Ausgabeschicht.}
+        \label{fig:7.5}
+    \end{minipage}
+    % Zweite Abbildung
+    \begin{minipage}[t]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{BA/Abbildungen/ResNet Output CR.png}
+        \caption{\ac{cr} vom ResNet-50 mit angepasster Ausgabeschicht.}
+        \label{fig:7.6}
+    \end{minipage}
+\end{figure}
+
+Das \ac{ft} der letzten 20 Schichten des ResNet-50 führte zu einer signifikanten Steigerung der Ergebnisse. Die Evaluierung des Testdatensatzes resultierte in einer Genauigkeit von 97,43\% sowie einem Verlust von 0,1051. Die Lernkurven (vgl. Abbildung \ref{fig:7.7}) demonstrieren eine signifikante Steigerung der Generalisierungsfähigkeit im Vergleich zum vorherigen Ansatz. 
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=1\textwidth]{BA/Abbildungen/ResNet 20 Acc_Loss.png}
+    \caption{Lernkurven des ResNet-50 mit \ac{ft}: Links die Genauigkeit, rechts der Verlust.}
+    \label{fig:7.7}
+\end{figure}
+
+Die \ac{cm} (Abbildung \ref{fig:7.8}) zeigt, dass das \ac{ft} eine präzisere Differenzierung der Klassen glioma und meningioma ermöglicht hat. Ergänzend verdeutlicht der \ac{cr} (Abbildung \ref{fig:7.9}) die gesteigerte Leistungsfähigkeit des Modells, was sich in einem Macro Average F1-Score von 0,97 für alle Klassen widerspiegelt.
+
+\begin{figure}[h!]
+    \centering
+    % Erste Abbildung
+    \begin{minipage}[t]{0.52\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{BA/Abbildungen/ResNet 20 CM.png}
+        \caption{\ac{cm} vom ResNet-50 mit \ac{ft}.}
+        \label{fig:7.8}
+    \end{minipage}
+    % Zweite Abbildung
+    \begin{minipage}[t]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{BA/Abbildungen/ResNet 20 CR.png}
+        \caption{\ac{cr} vom ResNet-50 mit \ac{ft}.}
+        \label{fig:7.9}
+    \end{minipage}
+\end{figure}
+
+Die \ac{hpo} vom Resnet-50 mit der Anzahl der trainierbaren Schichten als \ac{hp} demonstrierte, dass sowohl die Genauigkeit als auch der Verlust ab einer Anzahl von 19 Schichten eine Stabilisierung erfahren und somit ähnliche Ergebnisse im Durchschnitt erzielt werden konnten. Der optimale \ac{hp} resultierte in einer Anzahl von 23 Schichten mit einer Testgenauigkeit von 97,66\% bei einem Testverlust von 0,1097. Die Abbildung \ref{fig:7.10} veranschaulicht den Effekt des \ac{hp}s auf die Genauigkeit und den Verlust. Die \ac{cm} und der \ac{cr} mit dem besten \ac{hp} sind in den Abbildungen \ref{fig:7.11} und \ref{fig:7.12} dargestellt. 
+\\
+Die Ergebnisse nach \ac{hpo} (23 Schichten) belegen die Konsistenz der Performance des Modells. Die erzielte Genauigkeit, der Verlust und die F1-Scores weichen nur geringfügig von den Resultaten mit 20 Schichten ab, was auf die Robustheit der Optimierung hindeutet.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=1\textwidth]{BA/Abbildungen/ResNet HPO Acc_Loss.png}
+    \caption{Durchschnittliche Genauigkeit (links) und durchschnittlicher Verlust (rechts) in Abhängigkeit von der Anzahl der trainierbaren Schichten.}
+    \label{fig:7.10}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    % Erste Abbildung
+    \begin{minipage}[t]{0.52\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{BA/Abbildungen/ResNet HPO CM.png}
+        \caption{\ac{cm} vom ResNet-50 \\ nach \ac{hpo}.}
+        \label{fig:7.11}
+    \end{minipage}
+    % Zweite Abbildung
+    \begin{minipage}[t]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{BA/Abbildungen/ResNet HPO CR.png}
+        \caption{\ac{cr} vom ResNet-50 nach \ac{hpo}.}
+        \label{fig:7.12}
+    \end{minipage}
+\end{figure}
+
+\subsection{Diskussion der Ergebnisse}
+
+Die Analyse der Resultate beider Modelle offenbart eine beeindruckende Klassifikationsleistung von \ac{ht}. Das selbst entwickelte \ac{cnn} erreichte eine Genauigkeit von 98,1\%, während das feinjustierte ResNet-50-Modell eine Genauigkeit von 97,43\% erzielte. Die Ähnlichkeit der Resultate veranschaulicht die jeweiligen Stärken und Schwächen der Ansätze, die für die praktische und theoretische Anwendung von \ac{dl} in der medizinischen Bildanalyse relevant sind.
+\\
+Das \ac{cnn} profitierte von spezifischen Anpassungen an den verwendeten \ac{ds} und demonstrierte eine hohe Effizienz, insbesondere durch den Einsatz von Techniken wie Dropout, Batchnormalisierung und L2-Regularisierung. Im Rahmen des Modelltrainings wurden diverse Dropout-Raten (0,3, 0,4 und 0,5) evaluiert, wobei sich eine Rate von 0,5 als optimal erwies. Diese Rate gewährleistet das Gleichgewicht zwischen Regularisierung und Modellkapazität. Des Weiteren wurden diverse Konfigurationen der dichten Schicht mit 256, 512 und 1024 Neuronen evaluiert. Hierbei zeigte sich, dass eine Konfiguration mit 1024 Neuronen die beste Leistung hinsichtlich des F1-Scores und der Generalisierungsfähigkeit erzielte. Allerdings wies das Modell Anzeichen von Overfitting auf, insbesondere bei den Klassen glioma und meningioma. Dies lässt auf eine begrenzte Datenvielfalt in diesen Kategorien schließen. Dies verdeutlicht die Notwendigkeit einer besseren Datenrepräsentation, um die Modellleistung zu stabilisieren. Gleichzeitig wies das \ac{cnn} eine hohe Genauigkeit auf, ohne dass hierfür ein umfassendes \ac{tl} oder vortrainierte Gewichte erforderlich waren. Dies unterstreicht die Wirksamkeit der gewählten Modellarchitektur und Regularisierungstechniken.
+\\
+Im Gegensatz dazu wies das ResNet-50-Modell eine höhere Robustheit gegenüber Overfitting auf, was auf die Lernkurven mit wenigen starken Schwankungen zu sehen ist. Dies lässt sich auf die Vorteile von \ac{tl} und die bereits in den vortrainierten Schichten enthaltenen generalisierten Fähigkeiten zur Merkmalsextraktion zurückführen. Die Resultate demonstrieren jedoch auch, dass eine bloße Anpassung der Ausgabeschicht ohne weiterführendes \ac{ft} nicht hinreichte, um optimale Resultate zu erzielen. Erst nach einem gezielten \ac{ft} von Schichten konnte eine vergleichbare Performance wie beim selbst entwickelten \ac{cnn} erreicht werden. Dies lässt den Schluss zu, dass die Anzahl der trainierbaren Schichten eine zentrale Rolle beim \ac{ft} solcher Modelle spielt.
+\\
+Der mit dem ResNet-50-Modell erzielte Genauigkeitswert von 97,66\% entspricht in etwa den in der Literatur berichteten Ergebnissen. \citet{Ismael:2020} nutzten ResNet-50, ergänzt durch Datenaugmentation, und erzielten einen Genauigkeitswert von 97\%. \citet{Tandel:2021} verwendeten einen mehrheitswahlbasierten Ensemble-Ansatz und kamen auf ähnlich hohe Werte von 96,54\%. Im Gegensatz dazu erzielte das in dieser Arbeit präsentierte ResNet-50-Modell eine vergleichbare Leistung, ohne auf Datenaugmentation zurückzugreifen.
+\\
+Beide Modelle wiesen eine nahezu perfekte Klassifikation der Klassen notumor und pituitary auf (F1-Scores zw. 0,99 und 1), was darauf hindeutet, dass die morphologischen Merkmale dieser Klassen im Datensatz gut repräsentiert sind und somit von den Modellen effektiv erlernt werden konnten. Diese Ergebnisse unterstreichen die Bedeutung der Datenrepräsentativität bei der Modellentwicklung und -evaluierung.
+\\
+Die Gegenüberstellung beider Ansätze verdeutlicht zudem den Zielkonflikt zwischen Modellspezialisierung und Generalisierbarkeit. Das selbst entwickelte \ac{cnn} erzielte eine hohe Leistung auf dem gegebenen Datensatz, wobei spezifische Anpassungen vorgenommen wurden. Das ResNet-50-Modell hingegen zeichnet sich durch seine vortrainierten Schichten aus, wodurch eine größere Flexibilität und Robustheit gewährleistet wird. Die Resultate liefern wertvolle Erkenntnisse hinsichtlich der praktischen Anforderungen und der Einsatzmöglichkeiten von \ac{dl}-Modellen in der medizinischen Diagnostik. In einem klinischen Kontext könnte die Implementierung solcher Modelle die diagnostische Effizienz steigern, indem sie Radiologen bei der Differenzierung von Tumortypen unterstützen und die Arbeitsbelastung verringern. Dennoch ist eine Validierung mit unabhängigen klinischen Datensätzen erforderlich, um die Robustheit und Generalisierbarkeit der Modelle zu gewährleisten.
+\\
+Die Ergebnisse zeigen, dass die Wahl zwischen einem speziell entwickelten Modell und einem vortrainierten Ansatz von den spezifischen Anforderungen sowie den verfügbaren Ressourcen abhängig ist. Beide Ansätze besitzen ihre Relevanz und können durch gezielte Optimierungen eine weitere Verbesserung erfahren. Dies dürfte künftige Forschungsarbeiten zu Modellarchitekturen und Datenverarbeitung anregen.

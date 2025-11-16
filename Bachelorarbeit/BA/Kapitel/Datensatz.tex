@@ -1,0 +1,40 @@
+\section{Datensatz}
+
+\subsection{Beschreibung der Daten}
+
+Für diese Arbeit wurde ein offen zugänglicher \ac{mrt}-Datensatz aus dem Kaggle-Repository verwendet \citet[]{Nickparvar:2021}. Der Datensatz umfasst drei öffentlich zugängliche Quellen: Figshare \citet[]{Cheng:2017} , SARTAJ \citet[]{Bhuvaji:2020}, und BR35H \citet[]{Hamada:2017}. In diesem Zusammenhang werden verschiedene \ac{mrt}-Bilder des menschlichen Gehirns präsentiert, welche eine Vielfalt an \ac{ht} und deren charakteristische Eigenschaften repräsentieren.\\
+Der Datensatz enthält insgesamt 7.023 RGB-Bilder mit einer Auflösung von 512 x 512 Pixeln. Diese umfassen vier Klassen:
+\begin{itemize}
+    \item Gliome (engl. \textit{glioma}): 1.621 Bilder
+    \item Meningeome (engl. \textit{meningioma}): 1.645 Bilder
+    \item Hypophysentumoren (engl. \textit{pituitary}): 1.757 Bilder
+    \item Nicht tumoröse Gewebe (engl. \textit{no tumor}): 2.000 Bilder
+\end{itemize}
+Diese Verteilung gewährleistet eine nahezu ausgewogene Repräsentation der häufigsten Tumorarten, was für das Training von Klassifikationsmodellen von essenzieller Bedeutung ist. Dennoch lässt sich eine leichte Tendenz zugunsten der nicht-tumorösen Bilder beobachten, die bei der Modellentwicklung zu berücksichtigen ist, um Verzerrungen zu minimieren. \\
+Die Größe und Diversität des Datensatzes ermöglichen eine robuste Modellierung und ermöglichen die Erkennung generalisierbarer Muster. Abbildung \ref{fig:5.1} stellt die Klassenverteilung grafisch dar. 
+\begin{figure}[ht]
+    \centering
+    \hspace{-1.0cm} % Verschiebt die Abbildung nach links
+        \includegraphics[width=0.7\textwidth]{BA/Abbildungen/Klassenverteilung im Datensatz.png}
+        \caption{Verteilung der Bildklassen im Datensatz.}
+    \label{fig:5.1}
+\end{figure}
+Die Aufteilung des Datensatzes erfolgte in 80\% Trainingsdaten und 20\% Testingdaten, wobei letztere nochmals in 30\% Validierung und 70\% Testing unterteilt wurden. Diese Verteilung gewährleistet eine repräsentative Mischung für das Training und die Evaluierung der Modelle. Eine grafische Darstellung ist in Abbildung \ref{fig:5.2} zu sehen.
+\begin{figure}[ht]
+    \centering
+        \includegraphics[width=0.54\textwidth]{BA/Abbildungen/Struktur der Datenaufteilung.png}
+        \caption{Verteilung der Daten auf Trainings-, Validierungs- und Testsets.}
+    \label{fig:5.2}
+\end{figure}
+
+\subsection{Datenvorverarbeitung}
+
+Um eine konsistente Eingabegröße für das Modell zu gewährleisten, wurden die RGB-Bilder von ihrer ursprünglichen Auflösung von 512 x 512 Pixeln auf 224 x 224 Pixel standardisiert. Diese Anpassung der Bildgröße ist erforderlich, um die Kompatibilität der Bildgröße zwischen dem selbst entwickelten Modell und dem vortrainierten Modell ResNet-50 sicherzustellen (vgl. \citealt[S. 4]{He:2016} sowie \citealt[S. 346]{Geron:2019}). Da es sich um RGB-Bilder handelt, wurden die drei Farbkanäle für jeden Pixel beibehalten und die Bilddaten unter Verwendung des Parameters \texttt{\colorbox{gray!20}{scale=1/255}} normalisiert. Dies führte dazu, dass die Pixelwerte für jeden Farbkanal von ihrem ursprünglichen Bereich (0–255) auf einen Bereich von 0–1 skaliert wurden. (Vgl.  \citealt[S. 453]{Goodfellow:2017}). \\
+Des Weiteren wurde durch den Einsatz des Keras-Generators \texttt{\colorbox{gray!20}{ImageDataGenerator}} eine effiziente Pipeline zur Aufteilung der Daten in Testing- und Validierungsset implementiert, wobei der Parameter \texttt{\colorbox{gray!20}{validation\_split}} verwendet wurde. Dies gewährleistet, dass die Modelle während des Trainings optimal vorbereitet werden (vgl. \citealt[S. 482]{Geron:2019}). Die Kombination aus Standardisierung der Auflösung und Normalisierung der Werte ermöglicht es dem Modell, Eingabedaten in einem einheitlichen Format zu verarbeiten, was die Trainingsstabilität und Modellleistung fördert. \\
+Zusätzlich wurde zur Gewährleistung einer reproduzierbaren Durchführung die Steuerung zufälliger Operationen durch das Setzen eines globalen Seeds vorgenommen. Dazu wurden die Seeds in sämtlichen relevanten Modulen, beispielsweise NumPy und TensorFlow, einheitlich definiert. Dies gewährleistet, dass die Datenaufteilung sowie weitere zufällige Operationen deterministisch erfolgt und die Ergebnisse von Experimenten reproduzierbar bleiben.\\
+Da der Datensatz nahezu ausgewogen ist, wurde auf die Anwendung von Datenaugmentation verzichtet, um sicherzustellen, dass keine relevanten Bildmerkmale verloren gehen, die für die Tumorklassifikation von entscheidender Bedeutung sind, und um die klinische Anwendbarkeit der Ergebnisse nicht einzuschränken.\\
+Obwohl die Klassenverteilung im Datensatz nahezu ausgewogen ist, wurde ein Gewichtungsschema implementiert, um die Modellleistung zu optimieren (vgl. \citealt[S. 304]{Geron:2019}). Die Funktion \texttt{\colorbox{gray!20}{compute\_class\_weight}} wurde eingesetzt, um Klassengewichte zu berechnen, wodurch eine mögliche Verzerrung durch die leicht höhere Anzahl an nicht tumorösen Bildern verhindert werden sollte. Diese Maßnahme resultierte in einer Verbesserung der Modellleistung über alle Klassen hinweg.
+
+\subsection{Limitation des  Datensatzes}
+
+Obschon der Datensatz eine umfassende Auswahl an \ac{ht} umfasst, bestehen Einschränkungen hinsichtlich der Variabilität im Vergleich zur klinischen Realität. Die in öffentlichen Datensätzen enthaltenen Informationen decken nicht immer die gesamte Bandbreite seltener Tumorarten ab, was die Generalisierbarkeit der Modelle auf klinische Daten aus der Praxis beeinträchtigen könnte. Eine potenzielle Erweiterung könnte in der Anwendung der entwickelten Modelle auf klinische, nicht-öffentliche Datensätze liegen. Dadurch könnten die Robustheit und Übertragbarkeit der Modelle überprüft werden. 

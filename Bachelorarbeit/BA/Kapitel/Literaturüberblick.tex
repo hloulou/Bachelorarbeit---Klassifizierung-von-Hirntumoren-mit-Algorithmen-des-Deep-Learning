@@ -1,0 +1,97 @@
+\section{Literaturüberblick}
+
+Der Forschungsstand zur Erkennung von \ac{ht} mittels \ac{cnn}s zeigt eine Vielzahl an Ansätzen, die gezielt auf spezifische Herausforderungen und Datensätze abgestimmt sind.  \citet{Seetha:2018} demonstrierten die Effektivität vortrainierter Modelle mit eingefrorenen tiefen Schichten. Diese erwiesen sich im Vergleich zu traditionellen Modellen wie \ac{dnn} und \ac{svm} als überlegen.
+\\
+In einer weiteren Studie untersuchten \citet{Kabir:2018} die Klassifikation verschiedener Gliomgrade. Dazu kombinierten sie \ac{cnn}s mit \ac{ga}, um die Leistung der Modellarchitektur zu optimieren. \citet{Kebir:2018} evaluierten \ac{cnn}s in Kombination mit einem k-Means-Algorithmus zur Klassifikation und Segmentierung eines klinischen \ac{ds}.
+\\
+\citet{Anaraki:2019} integrierten \ac{ga} in den Trainingsprozess, um die \ac{cnn}-Strukturen zu optimieren und konnten präzise Klassifikationsergebnisse erzielen. \citet{Deepak:2019} hingegen verfolgten einen Ansatz des \ac{tl}, wobei GoogleNet als Feature-Extraktor für die Klassifikation mit kleinerem \ac{ds} verwendet wurde.
+\\
+\citet{Ismael:2020} konnten die Genauigkeit durch den Einsatz von Residual Networks (ResNet50) und einer Datenaugmentation verbessern. \citet{Naser:2020} demonstrierten das Potential von U-Net und VGG16 für die Segmentierung und Klassifikation niedriggradiger Gliome (LGG).
+\\
+\citet{Mehrotra:2020} untersuchten verschiedene vortrainierte Modelle und optimierten die Klassifikationsleistung durch \ac{tl}. \citet{Sharif:2020} kombinierten \ac{dl} mit Feature-Fusion-Techniken und optimierten die Ergebnisse mit \ac{pso}. Ein ensemble-basierter Ansatz wurde von \citet{Tandel:2021} entwickelt, welcher sowohl \ac{dl}- als auch \ac{ml}-Modelle integrierte, um eine Mehrheitswahl-basierte Klassifikation zu erreichen.
+\\
+In ihrer Untersuchung setzten \citet{Gab:2021} VGG19 als Feature-Extraktor ein und nutzten Bildaugmentationstechniken wie PGGAN. \citet{Dutta:2022} führten mit CDANet eine duale Aufmerksamkeitsstruktur ein, um fokussierte Merkmale aus \ac{mrt}-Bildern mit höherer Präzision zu erfassen.
+\\
+\citet{Altahhan:2023} entwickelten hybride \ac{cnn}-Modelle, welche \ac{dl}- und \ac{ml}-Klassifika-toren kombinierten. Die Optimierung von AlexNet in Verbindung mit SVM und KNN zielte auf eine Erhöhung der Genauigkeit ab. In einer späteren Studie präsentierten \citet{Ravinder:2023} ein graphbasiertes \ac{cnn}-Modell (GCNN), welches die Berücksichtigung nicht-euklidischer Distanzen in Bilddaten ermöglicht.
+\\
+Die in Tabelle \ref{tab:2.1} sowie in Tabelle \ref{tab:2.2} zusammengefassten Studien verdeutlichen die Anpassungsfähigkeit von \ac{cnn}-Modellen an spezifische Anforderungen, einschließlich \ac{ga}, hybrider Architekturen und \ac{tl}. Sie veranschaulichen sowohl Fortschritte als auch bestehende Herausforderungen in der medizinischen Bildverarbeitung.
+\begin{landscape}
+\renewcommand{\arraystretch}{2.5}
+\begin{table}[ht]
+\centering
+%\resizebox{1.47\textwidth}{!}{%
+\begin{tabular}{||c||c|c|c|c|c||}
+\hline
+\textbf{Autor(Jahr)}  & \textbf{Aufgabe} & \textbf{Daten} & \textbf{Modellarchitektur}
+& \textbf{Accuracy} & \textbf{\makecell{Anmerkungen}}
+\\ \hline \hline
+% 1  https://dx.doi.org/10.13005/bpj/1511
+\citet{Seetha:2018} & Klassifikation   & \makecell{\citet{BRATS:2015} \\ \& \citeauthor{Radiopaedia:2024}}   &   \makecell{Vortrainierte \\ \ac{cnn}s}  &  97.5\%      & /     
+\\ \hline \hline
+% 2 [50]
+\citet{Kabir:2018}  & \makecell{Klassifikation \& \\  Einstufung} & \makecell{REMBRANDT \\ \citet{Scarpace:2015}}& \makecell{Optimiertes \\\ac{cnn}} & 94.2\% &  \ac{ga} 
+\\ \hline \hline
+% 3 [5]
+\citet{Kebir:2018}  & \makecell{Klassifikation \& \\ Segmentierung} & privater klinischer \ac{ds} & \makecell{Optimiertes \\\ac{cnn}} & 95\% & K-Mean Algorithmus 
+\\ \hline \hline
+% 4 https://doi.org/10.1016/j.bbe.2018.10.004
+\citet{Anaraki:2019}  & \makecell{Klassifikation \& \\ Einstufung}  &    \makecell{\citet{IXI:2015}, \\ TCIA \citet{Clark:2013}, \\ \makecell{REMBRANDT \\ \citet{Scarpace:2015},}\\ \makecell{TCGA-GBM \\ \citet{Scarpace:2016}} \\ \makecell{\&  TCGA-LGG \\ \citet{Pedano:2016}}}     &    \makecell{Optimiertes \\\ac{cnn}} &  \makecell{90.9\% \\ 94.2\%}   & \ac{ga}                       
+\\ \hline \hline
+% 5 survey
+\citet{Deepak:2019}    &   \makecell{Klassifikation }   &   Figshare \citet{Cheng:2017}  &   GoogleNet      &  93\%   &    /                    
+\\ \hline \hline
+% 6 survey
+\citet{Ismael:2020}  & \makecell{Klassifikation }  &   Figshare \citet{Cheng:2017}  &   ResNet-50  &  97\%   &      Datenaugmentation            
+\\ \hline \hline
+% 7 survey
+\citet{Naser:2020}     &  \makecell{Segmentierung  \& \\ Einstufung} &  TCIA \citet{Clark:2013}  & \makecell{U-net \\ \& VGG-16 }  &  \makecell{92.0\% \\ 89.0\%} &        /     \\ \hline \hline
+\end{tabular}%
+%}
+\caption{Überblick über relevante Arbeiten zur Erkennung von Hirntumoren mittels \ac{cnn}s I.}
+\label{tab:2.1}
+\end{table}
+\end{landscape}
+
+
+
+
+
+\newpage
+\begin{landscape}
+\renewcommand{\arraystretch}{3.4}
+\begin{table}[ht]
+\centering
+\resizebox{0.98\linewidth}{!}{%
+\begin{tabular}{||c||c|c|c|c|c||}
+\hline
+\textbf{Autor(Jahr)}  & \textbf{Aufgabe} & \textbf{Daten} & \textbf{Modellarchitektur}
+& \textbf{Accuracy} & \textbf{\makecell{Anmerkungen}}
+\\ \hline \hline
+% 8 survey
+\citet{Mehrotra:2020}   &   Klassifikation   & TCIA \citet{Clark:2013} &  \makecell{AlexNet, GoogLeNet \\ ResNet-50, ResNet-101 \\  \& SqueezeNet}  &   \makecell{96.8\%  \\ (AlexNet)
+}  &      Binäre Klassifikation   
+\\ \hline \hline
+% 9 survey
+\citet{Sharif:2020}    &   \makecell{Klassifikation \& \\  Segmentierung}    &  \makecell{\citet{BRATS:2013}, \\ \citet{BRATS:2014} \\ BRATS \citet{Bakas:2017} \\ \& BRATS \citet{Bakas:2018}} & Inception V3 &   \makecell{98.3\%,\\ 97.8\%, \\ 96.9\% \\ \& 92.5\%}   &   \ac{pso}                
+\\ \hline \hline
+% 10 survey
+\citet{Tandel:2021}     &   Einstufung   & \makecell{REMBRANDT \\ \citet{Scarpace:2015}} &  \makecell{AlexNet, VGG-16, \\ ResNet-18, ResNet-50 \\ \& GoogleNet}   &   97.1\%   &  \makecell{Mehrheitswahl-basierter \\Ensemble-Algorithmus }                       
+\\ \hline \hline
+% 11 10.3390/diagnostics11122343
+\citet{Gab:2021}     &    Klassifikation  & \makecell{privater klinischer \ac{ds} \\ \citet{Cheng:2015}} & VGG-19 &   98.5\%   &   \makecell{PGGAN \\ Datenaugmentation}    
+\\ \hline \hline
+% 12 survey 
+\citet{Dutta:2022}   &   Klassifikation   &  Figshare \citet{Cheng:2017} &  CDANet &  96.7\%    &      /                             
+\\ \hline \hline
+% 13  10.3390/diagnostics13050864
+\citet{Altahhan:2023}   &    Klassifikation  &  Kaggle \citet{Nickparvar:2021} & \makecell{AlexNet-KNN \\ \& AlexNet-\acs{svm}} &   \makecell{95.0\% \\ 97.0\%}   &  Hybride \ac{dl}-\ac{ml}-Modelle             
+\\ \hline \hline
+% 14 10.1038/s41598-023-41407-8
+\citet{Ravinder:2023}    &   Klassifikation    & Kaggle \citet{Bhuvaji:2020} & GCNN &   95.0\%   &       Graphbasiertes Modell           
+\\ \hline
+\end{tabular}%
+}
+\caption{Überblick über relevante Arbeiten zur Erkennung von Hirntumoren mittels \ac{cnn}s II.}
+\label{tab:2.2}
+\end{table}
+\end{landscape}

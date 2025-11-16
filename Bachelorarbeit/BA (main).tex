@@ -1,0 +1,204 @@
+\documentclass[a4paper, 	        % Seitenformat
+		12pt, 					% Schriftgröße
+		bibliography=totoc, 	% Literaturverzeichnis in das Inhaltsverzeichnis
+		index=totoc, 	        % Index in das Inhaltsverzeichnis
+		abstract=true, 	        % mit Abstrakt
+		headsepline, 	        % Trennlinie für die Kopfzeile
+		%footnosepline,	        % Trennlinie für die Fusszeile
+		]{scrartcl}
+
+\usepackage[ngerman]{babel}	  % Mehrsprachenumgebung
+\usepackage{latexsym}		      % Latex-Symbole
+\usepackage[utf8]{inputenc}	% Eingabekodierungen
+\usepackage{subfig}	  	% Unterteilungen von Abbildungen
+\usepackage{float}		  % Gleitobjekte
+\usepackage{graphicx}		% Einbinden von Graphiken aus Dateien
+\usepackage{rotating}   % Die folgenden Packages sind meist hilfreich für das Erstellen von Arbeiten
+\usepackage{mathrsfs}
+\usepackage{eurosym,bm,amsmath,amssymb,verbatim}
+\usepackage{listings}
+\usepackage[T1]{fontenc}
+\usepackage{setspace}
+\usepackage [round,authoryear] {natbib} % Notwendiges Package für den verwendeten Literaturstil
+\usepackage[printonlyused]{acronym}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{bm}       % Für fette mathematische Symbole (z.B. Vektoren)
+\usepackage{pgfplots}
+\usepackage{caption} % Optional, für bessere Kontrolle über die Bildunterschriften
+\usepackage{multirow}
+\usepackage{adjustbox} % Optional für das Anpassen der Größen
+\usepackage[dvipsnames]{xcolor} %Farbpalette
+\usepackage{amsmath}
+\usepackage{lscape} %dreht die Seite
+\usepackage{makecell} % Tabellenzellen umbrechen
+\usepackage{ragged2e} % Blocksatz 
+
+
+%------------------------------------------------------------------------
+
+\parindent0pt 			% Einzug nach einer Leerzeile
+\topmargin-20.4mm   % Für die Ränder
+\textheight245mm
+
+\textwidth157mm \oddsidemargin11mm \evensidemargin11mm
+
+% Nummerierung der Gleichungen nach Abschnitt
+\renewcommand{\theequation}{\thesection.\arabic{equation}}
+\numberwithin{equation}{section}
+
+% Nummerierung der Abbildungen nach Abschnitt
+\renewcommand{\thefigure}{\thesection.\arabic{figure}}
+\numberwithin{figure}{section}
+
+% Nummerierung der Tabellen nach Abschnitt
+\renewcommand{\thetable}{\thesection.\arabic{table}}
+\numberwithin{table}{section}
+
+% Hyperlink-Optionen
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,     
+    urlcolor=cyan,
+    citecolor=blue,
+    pdfpagemode=FullScreen,
+}
+
+\pgfplotsset{compat=1.18}
+
+% Definiere eine neue Liste für das Gleichungsverzeichnis
+%\newcommand{\listequationsname}{Gleichungsverzeichnis}
+%\newlistof{myequations}{equ}{\listequationsname}
+
+% Befehl zur Aufnahme einer Gleichung ins Verzeichnis
+%\newcommand{\myeqref}[1]{%
+    %\refstepcounter{equ}%
+    %\addcontentsline{equ}{myequations}{\protect\numberline{\theequ} (#1)}\par}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}					
+% Start des Dokuments
+
+\begin{titlepage}
+
+\vspace*{4.5cm}
+\large\textbf{Klassifizierung von Hirntumoren mit Algorithmen des \\ Deep Learning} \\[0.5cm]
+
+
+\normalsize Freie wissenschaftliche Arbeit\\
+
+zur Erlangung des akademischen Grades\\
+
+"`Bachelor of Science"' \\
+
+Studiengang: Betriebswirtschaftslehre \\
+
+\textbf{an der Wirtschaftswissenschaftlichen\\ Fakultät der Universität Augsburg}\\[0.8cm]
+
+Lehrstuhl für Statistik\\[1.25cm]
+%
+%
+\noindent\begin{tabular}[h]{@{}ll}
+
+Eingereicht bei: & Prof. Dr. Yarema Okhrin\\
+\\
+Betreuerin: 	 & MSc. Sara Garber\\
+\\
+Vorgelegt von:   & Hanan Loulou\\
+\\
+\end{tabular}
+
+\vfill
+Augsburg, im Dezember 2024
+
+\end{titlepage}
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\pagenumbering{roman}
+
+
+\tableofcontents		    % Inhaltsverzeichnis
+\newpage
+\listoffigures			    % Abbildungsverzeichnis
+% Fügt das Abbildungsverzeichnis ins Inhaltsverzeichnis ein
+\addcontentsline{toc}{section}{Abbildungsverzeichnis}
+\newpage
+\listoftables				  % Tabellenverzeichnis
+\addcontentsline{toc}{section}{Tabellenverzeichnis}
+\newpage
+%\listofmyequations          % Gleichungsverzeichnis 
+%\newpage
+\input{BA/Kapitel/Abkürzungsverzeichnis} % Abkürzungsverzeichnis einbinden 
+\addcontentsline{toc}{section}{Abkürzungsverzeichnis}
+%\printglossary[type=\acronymtype]
+\newpage
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\input{BA/Kapitel/Disposition} % Zur besseren Strukturierung empfiehlt es sich das Dokument aufzuteilen.
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\pagenumbering{arabic}
+\onehalfspacing 			     % Für richtigen Zeilenabstand
+
+%\input{BA/Disposition} % Zur besseren Strukturierung empfiehlt es sich das Dokument aufzuteilen.
+%\newpage
+
+\input{BA/Kapitel/Einleitung} 
+\clearpage
+
+\input{BA/Kapitel/Literaturüberblick}
+\newpage
+
+\input{BA/Kapitel/Theorie hinter Deep Learning}
+\newpage
+
+\input{BA/Kapitel/Datensatz}
+\newpage
+
+\input{BA/Kapitel/Implementierung der Modelle}
+\newpage
+
+\input{BA/Kapitel/Interpretation der Ergebnisse}
+\newpage
+
+\input{BA/Kapitel/Zukunftsaussichten}
+\newpage
+
+\input{BA/Kapitel/Schlussfolgerung}
+\newpage
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\pagenumbering{Roman}
+\bibliographystyle{autorjahrdidiDE}  
+% Dies ist der verwendete Stil für Zitation und Literaturverzeichnis
+% Die Datei autorjahrdidiDE.bst muss in das aktuelle Arbeitsverzeichnis kopiert werden
+\bibliography{Literatur}	           
+% Literaturverzeichnis liegt in der Datei Literatur
+
+%\newpage
+%\section*{Anhang}
+%\addcontentsline{toc}{section}{Anhang}
+\end{document}											 
+% Ende des Dokuments
